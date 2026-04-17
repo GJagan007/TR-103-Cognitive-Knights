@@ -1,13 +1,13 @@
-=============================================
+=====================================
    🌊 OCEANIC FLEET DISPATCH AI — Marine Pollution Detection System
    Version: 2.5 (High-Reliability Multi-Scan Batch Edition)
    Team Name: Cognitive Knights
    Event: Tensor Hackathon 2026
-=============================================
+=====================================
 
 
   PROJECT OVERVIEW
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   An enterprise-grade satellite imagery analysis system that detects and 
   classifies marine debris (plastic, foam, oil sheen, seaweed) in real-time.
@@ -15,15 +15,14 @@
   providing a centralized "Master Fleet Dispatch Hub" for global environmental
   monitoring and cleanup coordination.
 
-  🌐 Live Deployment: https://marine-debris-detection-1.vercel.app/
-  🖥️ Source Code: https://github.com/GJagan007/TR-103-Cognitive-Knights
+🌐 Live Deployment: https://marine-debris-detection-1.vercel.app/
 
   "We store processed results in MongoDB Atlas and Cloudinary for scalable
    data persistence and advanced geospatial fleet analytics."
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   KEY FEATURES (V2.5)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   🛰️  Multi-Slot Satellite Feeds:
       - Add/Remove scan targets dynamically via the "Plus" slot system.
       - Independent GPS coordinate overrides for each scanning sector.
@@ -45,9 +44,9 @@
       - One-click "Integrated Fleet GeoJSON" download for the entire batch.
       - Compatible with standard GIS tools for cleanup vessel guidance.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   TECH STACK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   AI / Detection:
     - YOLOv8n (Ultralytics) — Custom-tuned for marine targets.
@@ -68,9 +67,9 @@
     - TailwindCSS + Vanilla JS — Responsive, high-performance interface.
     - Parallel Fetch Logic — Distributed request handling.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   PROJECT STRUCTURE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Tensor hackathon/
   ├── main.py              ← FastAPI backend (core API server)
@@ -82,9 +81,9 @@
   ├── dataset/             ← Training data (Plastic, Debris classes)
   └── README.txt           ← System documentation (This file)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   INSTALLATION & QUICK-START
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   1. Install Core Dependencies:
      pip install fastapi uvicorn python-multipart opencv-python ultralytics
@@ -98,9 +97,9 @@
      Open 'index.html' directly in your browser or use the Streamlit app:
      streamlit run ocean_app.py
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   OPERATIONAL GUIDELINES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   1. Click "+ Add Another Satellite Feed Slot" for batch analysis.
   2. Select satellite imagery and assign unique Latitude/Longitude.
@@ -110,12 +109,12 @@
   5. Use "Download Integrated Fleet GeoJSON" to export all coordinates for 
      fleet-wide deployment.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   CONTACT & SUPPORT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   Lead Developer : Diyanezwaran K
   Organization   : Cognitive Knights
   Project        : Marine AI Debris Scanner
 
-=============================================
+=====================================
