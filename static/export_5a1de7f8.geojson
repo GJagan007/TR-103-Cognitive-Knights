@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28512849498141,
+          13.04633703359514
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.7486171126365662
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29050381471633,
+          13.043513052802757
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.3214031755924225
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28641567474237,
+          13.042743405364618
+        ]
+      },
+      "properties": {
+        "classification": "Oil Sheen",
+        "confidence_score": 0.16432470083236694
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28680974125027,
+          13.040728232431785
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.04827175661921501
+      }
+    }
+  ]
+}

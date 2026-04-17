@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28545560890912,
+          13.042136178671619
+        ]
+      },
+      "properties": {
+        "classification": "Drifting Seaweed / Netting",
+        "confidence_score": 0.4429621994495392
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2940168215926,
+          13.04048443430568
+        ]
+      },
+      "properties": {
+        "classification": "Drifting Seaweed / Netting",
+        "confidence_score": 0.20659597218036652
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29418302814508,
+          13.044712077002346
+        ]
+      },
+      "properties": {
+        "classification": "Surface Oil Sheen",
+        "confidence_score": 0.1553477793931961
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28633947495408,
+          13.045334137819742
+        ]
+      },
+      "properties": {
+        "classification": "Drifting Seaweed / Netting",
+        "confidence_score": 0.0897551104426384
+      }
+    }
+  ]
+}

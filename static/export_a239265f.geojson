@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28830720459867,
+          13.045235362145823
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.15699400007724762
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28689416970032,
+          13.044288751871582
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.08401229977607727
+      }
+    }
+  ]
+}

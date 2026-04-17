@@ -1,0 +1,19 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29199953470369,
+          13.048321759098142
+        ]
+      },
+      "properties": {
+        "classification": "Drifting Seaweed / Netting",
+        "confidence_score": 0.38622114062309265
+      }
+    }
+  ]
+}

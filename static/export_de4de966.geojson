@@ -1,0 +1,243 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29344330173159,
+          13.043751667567864
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.8010016679763794
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29274886433093,
+          13.04680160774574
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.6467410326004028
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28895937043457,
+          13.04031007365527
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.5194042325019836
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28998720195862,
+          13.044556149440934
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.34387513995170593
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28790757214111,
+          13.046756323393899
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.323995977640152
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29207859476898,
+          13.04471695628458
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.274502694606781
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28821204286805,
+          13.041741923891387
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.24231040477752686
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29449392160431,
+          13.043193173467643
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.16380076110363007
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2937530500189,
+          13.044705773791488
+        ]
+      },
+      "properties": {
+        "classification": "Oil Sheen",
+        "confidence_score": 0.06078740954399109
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29019662131942,
+          13.047874029867717
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.0603560209274292
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28784492297177,
+          13.046330189593384
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.05726684629917145
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28883622476597,
+          13.041603306807868
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.05303627625107765
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28936090968513,
+          13.043772136462511
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.03831403702497482
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2874201703708,
+          13.047438232479323
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.038160182535648346
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28650953710343,
+          13.047272857214583
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.036274924874305725
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29417878951449,
+          13.045680890753168
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.034400321543216705
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29138114292843,
+          13.040251633218052
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.03286639228463173
+      }
+    }
+  ]
+}

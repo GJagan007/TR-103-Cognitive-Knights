@@ -1,0 +1,187 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28785616293331,
+          13.044402253776513
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.4444221556186676
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28930072602085,
+          13.041029697131014
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.25418686866760254
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28858860722335,
+          13.041800553828038
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.22755247354507446
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29072978208889,
+          13.043034652523234
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.22194045782089233
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29440343805867,
+          13.04510730010049
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.20912425220012665
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28569410100403,
+          13.048492607471287
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.12854082882404327
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29472998909458,
+          13.04761398074319
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.07107588648796082
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28565763362639,
+          13.042580366802007
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.05315312370657921
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29130118886087,
+          13.042122741511967
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.04974308982491493
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28924291018004,
+          13.049463602572514
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.044581569731235504
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29398224428031,
+          13.0432942642881
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.04002728313207626
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.2918281792417,
+          13.047799814545817
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.03820949047803879
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28850879655087,
+          13.044879840882947
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.03764573484659195
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28836438258851,
+          13.04221012226588
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.7269601225852966
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29298923680302,
+          13.042515273608327
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.46119025349617004
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28710966816064,
+          13.041608091538217
+        ]
+      },
+      "properties": {
+        "classification": "Plastic",
+        "confidence_score": 0.14690613746643066
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28579599757191,
+          13.04369888157818
+        ]
+      },
+      "properties": {
+        "classification": "Foam",
+        "confidence_score": 0.11127731949090958
+      }
+    }
+  ]
+}

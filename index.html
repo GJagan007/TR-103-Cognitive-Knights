@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oceanic Fleet Dispatch API — Multi-Scan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan-glow: rgba(34, 211, 238, 0.4);
+            --blue-glow: rgba(37, 99, 235, 0.3);
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #020617;
+            overflow-x: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            filter: brightness(0.4) saturate(1.2);
+        }
+        
+        .glass {
+            background: rgba(0, 7, 20, 0.7);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 45px -12px rgba(0, 0, 0, 0.6);
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.3); border-radius: 4px; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-up { animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        .density-bar-fill { transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+    </style>
+</head>
+<body class="text-white min-h-screen pb-20">
+
+<video autoplay muted loop id="bg-video">
+    <source src="ocean.mp4" type="video/mp4">
+</video>
+
+<div class="flex flex-col items-center py-12 px-4 max-w-6xl mx-auto">
+    
+    <header class="text-center mb-12 animate-up">
+        <h1 class="text-6xl font-extrabold mb-3 text-cyan-400 tracking-tight drop-shadow-[0_0_20px_var(--cyan-glow)]">
+            Oceanic Fleet Dispatch API
+        </h1>
+        <p class="text-slate-300 text-lg font-light tracking-wide">Satellite Aerial Debris Classification & Heatmap Tool</p>
+    </header>
+
+    <!-- Configure Scan Module -->
+    <div class="w-full max-w-2xl flex flex-col gap-5 animate-up" style="animation-delay: 0.1s">
+        
+        <div id="slotsContainer" class="flex flex-col gap-4">
+            <!-- Slots will be injected here -->
+        </div>
+
+        <button onclick="addSlot()" class="w-full py-4 rounded-2xl border-2 border-dashed border-cyan-800/40 hover:border-cyan-500/60 bg-cyan-950/10 hover:bg-cyan-950/20 text-cyan-500 hover:text-cyan-300 font-bold transition-all flex items-center justify-center gap-2">
+            <span class="text-2xl leading-none">＋</span> Add Another Satellite Feed Slot
+        </button>
+
+        <button onclick="executeAllScans()" id="executeBtn" class="w-full py-4 rounded-2xl font-extrabold text-lg bg-cyan-600 hover:bg-cyan-500 hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(8,145,178,0.4)] mt-2">
+            Execute Multi-Sector Aerial Scan
+        </button>
+    </div>
+
+    <!-- Processing Overlay -->
+    <div id="loadingOverlay" class="hidden mt-12 flex flex-col items-center gap-4">
+        <div class="w-12 h-12 border-4 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin"></div>
+        <p class="text-cyan-400 font-mono text-sm tracking-widest animate-pulse">SYNCHRONIZING FLEET DIAGNOSTICS...</p>
+    </div>
+
+    <!-- Error HUD -->
+    <div id="errorHud" class="hidden mt-8 w-full max-w-5xl glass border-red-900/50 p-10 rounded-3xl text-red-500 text-center font-bold text-xl">
+    </div>
+
+    <!-- Results Display -->
+    <div id="resultsContainer" class="mt-16 w-full flex flex-col gap-10">
+        <!-- Result Cards injected here -->
+    </div>
+
+</div>
+
+<!-- ── Templates ── -->
+<template id="slotTemplate">
+    <div class="slot-item glass p-6 rounded-2xl relative animate-up">
+        <div class="flex items-center justify-between mb-4 border-b border-white/5 pb-3">
+            <span class="text-xs font-bold text-cyan-500 uppercase tracking-widest slot-label">📡 Scan Slot #1</span>
+            <button onclick="removeSlot(this)" class="remove-btn w-8 h-8 flex items-center justify-center rounded-full bg-red-950/30 hover:bg-red-600 border border-red-900/50 text-red-400 hover:text-white transition-all text-xl font-light">×</button>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="flex flex-col gap-2">
+                <label class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Satellite Feed:</label>
+                <div class="relative group">
+                    <input type="file" class="imageInput absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="updateFileLabel(this)">
+                    <div class="file-dummy bg-black/40 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-500 group-hover:border-slate-500 transition-colors flex items-center gap-3">
+                        <span class="text-xl">📂</span>
+                        <span class="file-name truncate">Select Image File...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Latitude:</label>
+                    <input type="text" class="latInput w-full bg-black/40 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-colors" placeholder="13.0450">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Longitude:</label>
+                    <input type="text" class="lonInput w-full bg-black/40 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500 transition-colors" placeholder="80.2900">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    const slotsContainer = document.getElementById('slotsContainer');
+    const slotTemplate = document.getElementById('slotTemplate');
+    const rootPath = "http://127.0.0.1:8008";
+
+    function addSlot() {
+        const clone = slotTemplate.content.cloneNode(true);
+        slotsContainer.appendChild(clone);
+        reorderLabels();
+    }
+
+    function removeSlot(btn) {
+        if (document.querySelectorAll('.slot-item').length > 1) {
+            btn.closest('.slot-item').remove();
+            reorderLabels();
+        }
+    }
+
+    function reorderLabels() {
+        const slots = document.querySelectorAll('.slot-item');
+        slots.forEach((slot, i) => {
+            slot.querySelector('.slot-label').innerText = `📡 Scan Slot #${i + 1}`;
+            const removeBtn = slot.querySelector('.remove-btn');
+            if (slots.length === 1) removeBtn.classList.add('hidden');
+            else removeBtn.classList.remove('hidden');
+        });
+    }
+
+    function updateFileLabel(input) {
+        const name = input.files[0] ? input.files[0].name : "Select Image File...";
+        input.nextElementSibling.querySelector('.file-name').innerText = name;
+        input.nextElementSibling.classList.add('text-cyan-300', 'border-cyan-900/50', 'bg-cyan-950/20');
+        input.nextElementSibling.querySelector('span:first-child').innerText = '🖼️';
+    }
+
+    async function executeAllScans() {
+        const slots = document.querySelectorAll('.slot-item');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const executeBtn = document.getElementById('executeBtn');
+        const errorHud = document.getElementById('errorHud');
+
+        let hasFile = false;
+        slots.forEach(slot => { if(slot.querySelector('.imageInput').files[0]) hasFile = true; });
+        if (!hasFile) { alert("Attach at least one satellite feed."); return; }
+
+        resultsContainer.innerHTML = "";
+        errorHud.classList.add('hidden');
+        loadingOverlay.classList.remove('hidden');
+        executeBtn.disabled = true;
+
+        const batchId = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+        const promises = Array.from(slots).map((slot, index) => {
+            const file = slot.querySelector('.imageInput').files[0];
+            if (!file) return null;
+            
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("lat", slot.querySelector('.latInput').value.trim() || "13.0450");
+            formData.append("lon", slot.querySelector('.lonInput').value.trim() || "80.2900");
+            formData.append("batch_id", batchId);
+            formData.append("scan_index", String(index));
+
+            return fetch(`${rootPath}/analyze`, { method: "POST", body: formData })
+                .then(r => r.ok ? r.json() : r.text().then(t => Promise.reject(`HTTP ${r.status}: ${t}`)))
+                .then(data => ({ ...data, _fileName: file.name }))
+                .catch(err => ({ _error: err.toString(), _fileName: file.name }));
+        }).filter(p => p !== null);
+
+        try {
+            const results = await Promise.all(promises);
+            renderResults(results, resultsContainer);
+        } catch (e) {
+            errorHud.innerHTML = `
+                <div class="inline-block bg-blue-900 px-4 py-1 mb-4 text-sm font-mono text-white underline underline-offset-4">Fatal Error: Connection Refused</div>
+                <p class="text-white/60 text-sm font-mono mt-2 uppercase tracking-widest">Verify API Terminal is Running on Port 8008</p>
+                <p class="text-slate-500 text-[10px] mt-4 font-mono">${e.toString()}</p>
+            `;
+            errorHud.classList.remove('hidden');
+        } finally {
+            loadingOverlay.classList.add('hidden');
+            executeBtn.disabled = false;
+        }
+    }
+
+    function renderResults(results, container) {
+        // 1. Sort results by Priority Severity for Global Ranking
+        // Define weights: CRITICAL (4), HIGH (3), MODERATE (2), LOW (1), CLEAR (0)
+        const getWeight = (p) => {
+            const up = p.toUpperCase();
+            if (up.includes('CRITICAL')) return 4;
+            if (up.includes('HIGH')) return 3;
+            if (up.includes('MODERATE')) return 2;
+            if (up.includes('LOW')) return 1;
+            return 0;
+        };
+
+        const sortedResults = [...results].filter(r => !r._error).sort((a, b) => getWeight(b.priority) - getWeight(a.priority));
+
+        // 2. Render Global Deployment Ranking Hub (only if 1+ successful scans)
+        if (sortedResults.length > 0) {
+            const masterHub = document.createElement('div');
+            masterHub.className = 'glass rounded-3xl p-10 shadow-3xl animate-up mb-12 border-cyan-500/20';
+            
+            masterHub.innerHTML = `
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-cyan-400 mono">🌍 Master Fleet Dispatch Ranking</h3>
+                        <p class="text-slate-500 text-xs uppercase tracking-widest mt-1">Global priority analysis for fleet coordination</p>
+                    </div>
+                    <button id="batchDownload" class="px-6 py-3 bg-blue-900/60 hover:bg-blue-700 border border-blue-500/30 rounded-xl text-sm font-bold transition-all shadow-xl hover:shadow-blue-900/30 flex items-center gap-2">
+                        📋 Download Integrated Fleet GeoJSON
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-white/5 bg-black/40">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-white/5 text-slate-400 uppercase text-[10px] tracking-[0.3em] font-bold">
+                                <th class="px-6 py-5">Rank</th>
+                                <th class="px-6 py-5">Cleanup Condition</th>
+                                <th class="px-6 py-5">Latitude</th>
+                                <th class="px-6 py-5">Longitude</th>
+                                <th class="px-6 py-5">Source File</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${sortedResults.map((res, i) => {
+                                const pLabel = res.priority.split('(')[0].trim(); // Get primary label
+                                const pColor = pLabel.includes('CRITICAL') ? 'text-red-400 bg-red-950/40 border-red-800/50' : 
+                                              pLabel.includes('MODERATE') ? 'text-yellow-400 bg-yellow-950/40 border-yellow-800/50' :
+                                              pLabel.includes('LOW') ? 'text-green-400 bg-green-950/40 border-green-800/50' :
+                                              'text-slate-400 bg-slate-900/40 border-slate-700/50';
+
+                                return `
+                                    <tr class="border-t border-white/5 hover:bg-white/5 transition-colors group">
+                                        <td class="px-6 py-5 font-mono font-bold text-xl text-cyan-500/80">#${i + 1}</td>
+                                        <td class="px-6 py-5">
+                                            <span class="px-3 py-1.5 rounded-lg border font-bold uppercase text-[10px] tracking-widest ${pColor}">
+                                                ${pLabel}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-5 font-mono text-slate-200">${res.lat || '13.0450'}</td>
+                                        <td class="px-6 py-5 font-mono text-slate-200">${res.lon || '80.2900'}</td>
+                                        <td class="px-6 py-5 text-slate-400 text-xs italic opacity-70 group-hover:opacity-100 transition-opacity whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]" title="${res._fileName}">
+                                            ${res._fileName}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            container.appendChild(masterHub);
+
+            document.getElementById('batchDownload').onclick = () => {
+                const allFeatures = results.map(r => r.geojson_features || []).reduce((acc, val) => acc.concat(val), []);
+                const batchGeoJSON = { type: "FeatureCollection", features: allFeatures };
+                const blob = new Blob([JSON.stringify(batchGeoJSON, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `fleet_batch_${Date.now().toString(36)}.geojson`;
+                a.click();
+            };
+        }
+
+        // 3. Render Individual Diagnostic Cards
+        results.forEach((data, index) => {
+            if (data._error) {
+                const errBox = document.createElement('div');
+                errBox.className = 'glass border-red-900/40 p-10 rounded-3xl text-red-500 animate-up text-center font-bold text-xl mb-6';
+                errBox.innerHTML = `
+                    <div class="inline-block bg-blue-900 px-4 py-1 mb-4 text-sm font-mono text-white">Execution Fault: Sector Analysis Denied</div>
+                    <p class="text-white/60 text-sm font-mono mt-2">Error scanning ${data._fileName}:</p>
+                    <p class="text-red-400/80 text-xs mt-2 font-mono">${data._error}</p>
+                `;
+                container.appendChild(errBox);
+                return;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'glass rounded-3xl p-10 shadow-3xl animate-up mb-12';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            const imgUrl = (data.image && data.image.startsWith("http")) ? data.image : rootPath + data.image;
+            const priorityLabel = data.priority || "UNKNOWN";
+            const dispatchStatus = priorityLabel.includes("CRITICAL") ? " (Immediate Dispatch Required)" : 
+                                  priorityLabel.includes("HIGH") ? " (Deployment Recommended)" : "";
+
+            card.innerHTML = `
+                <div class="text-center mb-10 border-b border-white/10 pb-8">
+                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] font-mono block mb-3">Diagnostic Analysis Report — Scan #${index + 1}</span>
+                    <h2 class="text-3xl font-bold text-cyan-400 mono tracking-tight">Priority Vector: ${priorityLabel}${dispatchStatus}</h2>
+                    <p class="text-slate-500 text-xs mt-3 uppercase tracking-widest italic opacity-50">Satellite Feed Source: ${data._fileName}</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                    <div class="lg:col-span-7">
+                        <div class="relative group">
+                            <div class="absolute -inset-1 bg-cyan-500/10 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                            <img src="${imgUrl}" class="relative rounded-2xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] w-full block">
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 flex flex-col gap-6">
+                        <div class="bg-black/60 p-6 rounded-2xl border border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-slate-400 text-sm font-medium tracking-wide">Debris Density Imprint:</span>
+                                <span class="text-xl font-bold text-white mono">${data.density}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400 text-sm font-medium tracking-wide">Gross Debris Count:</span>
+                                <span class="text-xl font-bold text-white mono">${data.count}</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-black/80 p-6 rounded-2xl border border-white/5 flex-1 shadow-inner relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-3 opacity-10 pointer-events-none">
+                                <span class="text-4xl text-cyan-400">🛰️</span>
+                            </div>
+                            <h3 class="text-cyan-500 text-xs uppercase font-extrabold mb-5 tracking-[0.2em] border-b border-white/10 pb-3">Identified Taxonomy Classifications</h3>
+                            <ul class="space-y-4 max-h-56 overflow-y-auto pr-3 text-sm text-slate-200 custom-scroll">
+                                ${data.taxonomy ? data.taxonomy.map(item => `
+                                    <li class="group">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <div class="w-2 h-2 rounded-sm bg-white shrink-0"></div>
+                                            <span class="font-bold text-white text-base">${item.type}</span>
+                                        </div>
+                                        <p class="text-slate-500 text-xs pl-4 font-mono">↳ Certainty: ${item.confidence}</p>
+                                    </li>
+                                `).join('') : '<li class="text-slate-500 italic">No anomalous targets isolated.</li>'}
+                            </ul>
+                        </div>
+
+                        <div class="flex flex-col gap-4">
+                            <a href="${rootPath + data.heatmap}" target="_blank" class="w-full py-3.5 bg-slate-800/80 hover:bg-slate-700 border border-white/10 rounded-xl text-center text-sm font-bold transition-all shadow-xl">🗺️ Expand Heatmap Topography</a>
+                            <a href="${rootPath + data.geojson}" target="_blank" class="w-full py-3.5 bg-blue-900/60 hover:bg-blue-700 border border-blue-500/30 rounded-xl text-center text-sm font-bold transition-all shadow-xl">📡 Download Fleet GeoJSON</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    addSlot();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+path: D:/Tensor hackathon/converted_dataset
+
+train: images/train
+val: images/val
+
+names:
+  0: plastic
+  1: debris

@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.29371207661931,
+          13.048079815254042
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.1716194599866867
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          80.28625333739386,
+          13.046954057274903
+        ]
+      },
+      "properties": {
+        "classification": "Seaweed",
+        "confidence_score": 0.05239314213395119
+      }
+    }
+  ]
+}
