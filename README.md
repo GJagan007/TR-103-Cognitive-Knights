@@ -1,120 +1,98 @@
-=====================================
-   🌊 OCEANIC FLEET DISPATCH AI — Marine Pollution Detection System
-   Version: 2.5 (High-Reliability Multi-Scan Batch Edition)
-   Team Name: Cognitive Knights
-   Event: Tensor Hackathon 2026
-=====================================
+# 🌊 OCEANIC FLEET DISPATCH AI
+**Marine Pollution Detection System | Version 2.5**  
+**Team:** Cognitive Knights  
 
+**Event:** Tensor Hackathon 2026  
+**Status:** High-Reliability Multi-Scan Batch Edition
+=====================================  
 
-  PROJECT OVERVIEW
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 📖 PROJECT OVERVIEW
 
-  An enterprise-grade satellite imagery analysis system that detects and 
-  classifies marine debris (plastic, foam, oil sheen, seaweed) in real-time.
-  The system supports parallel batch-processing of multiple satellite feeds,
-  providing a centralized "Master Fleet Dispatch Hub" for global environmental
-  monitoring and cleanup coordination.
+The Oceanic Fleet Dispatch AI is a professional-grade satellite imagery analysis platform designed to combat global marine pollution. Unlike standard single-image detectors, this system utilizes a "Master Fleet Dispatch Hub" architecture, allowing users to analyze multiple scanning sectors simultaneously.
 
-🌐 Live Deployment: https://marine-debris-detection-1.vercel.app/
-
-  "We store processed results in MongoDB Atlas and Cloudinary for scalable
-   data persistence and advanced geospatial fleet analytics."
+By leveraging YOLOv8n and Parallel Asynchronous Processing, the system identifies plastics, foam, oil sheen, and seaweed in real-time, assigning a global threat priority rank to each sector to guide cleanup vessel deployment.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  KEY FEATURES (V2.5)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🛰️  Multi-Slot Satellite Feeds:
-      - Add/Remove scan targets dynamically via the "Plus" slot system.
-      - Independent GPS coordinate overrides for each scanning sector.
+## 🛰️ KEY FEATURES
 
-  ⚡  Parallel Asynchronous Processing:
-      - Scan 10+ images simultaneously using JS Promise.all logic.
-      - Shared Batch ID linking for comprehensive fleet-wide synchronization.
-
-  🏆  Master Fleet Dispatch Ranking:
-      - Automatic global ranking of all scan targets by threat severity.
-      - Rank #1 priority assignment for CRITICAL environments.
-      - Integrated "Fleet Deployment Table" with real-time GPS coordinates.
-
-  📦  Unified Cloud Storage:
-      - Cloudinary: Automatic folder-based organization by Batch ID.
-      - MongoDB: Permanent metadata linkage for historical fleet tracking.
-
-  📋  Sector-Wide GeoJSON Export:
-      - One-click "Integrated Fleet GeoJSON" download for the entire batch.
-      - Compatible with standard GIS tools for cleanup vessel guidance.
+- **Multi-Slot Satellite Feeds:** Dynamically add/remove scan targets. Each slot supports independent GPS coordinate overrides.
+- **Parallel Inference Engine:** Uses JS Promise.all logic to hit the FastAPI backend simultaneously, reducing batch processing time by up to 70%.
+- **Master Fleet Ranking:** Automatically ranks sectors based on debris density and toxicity. Rank #1 indicates the highest priority.
+- **Unified Cloud Storage:**
+  - Cloudinary: CDN-hosted imagery organized by Batch_ID
+  - MongoDB Atlas: Persistent metadata storage for historical analysis
+- **GIS Integration:** Export GeoJSON files for navigation systems.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  TECH STACK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🛠️ TECH STACK
 
-  AI / Detection:
-    - YOLOv8n (Ultralytics) — Custom-tuned for marine targets.
-    - OpenCV — High-precision bounding box rendering (Marine Taxonomy).
-    - Robust Form Parsing — Prevents API 422 errors via permissive type-validation.
-
-  Backend:
-    - FastAPI — High-performance ASGI interface (Port 8008).
-    - Uvicorn — Enterprise-ready orchestration.
-    - Python 3.11
-
-  Cloud Data Infrastructure:
-    - Cloudinary — Folder-based CDN image hosting.
-    - MongoDB Atlas — NoSQL data persistence with UTC timestamps.
-
-  Frontend (Cinematic UI):
-    - Glassmorphism Dashboard — Premium transparent workspace.
-    - TailwindCSS + Vanilla JS — Responsive, high-performance interface.
-    - Parallel Fetch Logic — Distributed request handling.
+- **AI/Detection:** YOLOv8n (Ultralytics) + OpenCV  
+- **Backend:** FastAPI (Python 3.11) + Uvicorn  
+- **Frontend:** Vanilla JS + TailwindCSS  
+- **Databases:** MongoDB Atlas + Cloudinary  
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  PROJECT STRUCTURE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## ⚙️ INSTALLATION & AI SETUP
 
-  Tensor hackathon/
-  ├── main.py              ← FastAPI backend (core API server)
-  ├── index.html           ← High-end Multi-Scan Frontend (primary entry)
-  ├── ocean_app.py         ← Unified Streamlit Application
-  ├── ocean.mp4            ← Cinematic background video
-  ├── yolov8n.pt           ← YOLOv8 base model weights
-  ├── static/              ← Local generated results cache (heatmaps/GeoJSON)
-  ├── dataset/             ← Training data (Plastic, Debris classes)
-  └── README.txt           ← System documentation (This file)
+### 1. Clone & Environment Setup
+```bash
+git clone https://github.com/cognitive-knights/oceanic-fleet-ai.git
+cd oceanic-fleet-ai
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  INSTALLATION & QUICK-START
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+### 2. Install Dependencies
+```bash
+pip install fastapi uvicorn python-multipart opencv-python ultralytics
+pip install folium Pillow numpy pymongo cloudinary streamlit torch torchvision
+```
 
-  1. Install Core Dependencies:
-     pip install fastapi uvicorn python-multipart opencv-python ultralytics
-     pip install folium Pillow numpy pymongo cloudinary streamlit
-
-  2. Ignite the Fleet API Server:
-     python main.py
-     → [INFO] API operational on http://127.0.0.1:8008
-
-  3. Launch the Dispatch Dashboard:
-     Open 'index.html' directly in your browser or use the Streamlit app:
-     streamlit run ocean_app.py
+### 3. AI Model Installation (Critical)
+- Place `yolov8n.pt` in the root directory
+- Supports CUDA if NVIDIA GPU is available
+- Replace with custom `best.pt` if needed
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  OPERATIONAL GUIDELINES
+## 🚀 EXECUTION GUIDE
+
+### Step 1: Start Backend
+```bash
+python main.py
+# Runs on http://127.0.0.1:8008
+```
+
+### Step 2: Launch Frontend
+- Open `index.html` in browser  
+OR
+```bash
+streamlit run ocean_app.py
+```
+
+### Step 3: Workflow
+- Add satellite feed slots  
+- Upload images + coordinates  
+- Run multi-sector scan  
+- Analyze ranking  
+- Export GeoJSON  
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  1. Click "+ Add Another Satellite Feed Slot" for batch analysis.
-  2. Select satellite imagery and assign unique Latitude/Longitude.
-  3. Click "Execute Multi-Sector Aerial Scan".
-  4. View the "Master Fleet Dispatch Ranking" at the top to identify the 
-     highest priority sectors (Rank #1 = CRITICAL).
-  5. Use "Download Integrated Fleet GeoJSON" to export all coordinates for 
-     fleet-wide deployment.
-
+## 📁 PROJECT STRUCTURE
+```
+Tensor Hackathon/
+├── main.py
+├── index.html
+├── ocean_app.py
+├── yolov8n.pt
+├── ocean.mp4
+├── static/
+├── dataset/
+└── README.txt
+```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  CONTACT & SUPPORT
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🛡️ CONTACT
 
-  Lead Developer : Diyanezwaran K
-  Organization   : Cognitive Knights
-  Project        : Marine AI Debris Scanner
-
-=====================================
+**Lead Developer:** Diyanezwaran K  
+**Organization:** Cognitive Knights  
+**Project:** Marine AI Debris Scanner  
+**Saving our oceans, one frame at a time 🌍**
